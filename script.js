@@ -15,7 +15,7 @@ function computerPlay() {
 function playerPlay() {
   let playerSelection;
   do {
-    playerSelection = prompt("Chose Rock, Paper or Scissors", "rock");
+    playerSelection = prompt("Chose Rock, Paper or Scissors");
   } while (
     playerSelection != "rock" &&
     playerSelection != "paper" &&
