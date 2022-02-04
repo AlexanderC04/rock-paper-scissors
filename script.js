@@ -1,5 +1,14 @@
 let scorePlayer = 0;
 let scoreComputer = 0;
+let gameContainer = document.querySelector(".game-container");
+let rock = document.querySelector(".rock");
+let paper = document.querySelector(".paper");
+let scissors = document.querySelector(".scissors");
+let btn = document.querySelectorAll(".btn");
+let result = document.querySelector(".result");
+let score = document.querySelector(".score");
+let announcement = document.querySelector(".announcement");
+let restartBtn = document.createElement("button");
 
 function computerPlay() {
   let num = Math.floor(Math.random() * 3) + 1;
@@ -12,64 +21,80 @@ function computerPlay() {
   }
 }
 
-function playerPlay() {
-  let playerSelection;
-  do {
-    playerSelection = prompt("Chose Rock, Paper or Scissors");
-  } while (
-    playerSelection != "rock" &&
-    playerSelection != "paper" &&
-    playerSelection != "scissors"
-  );
-  return playerSelection;
-}
+// playerPlay
+rock.addEventListener("click", () => {
+  playRound("rock", computerPlay());
+});
+paper.addEventListener("click", () => {
+  playRound("paper", computerPlay());
+});
+scissors.addEventListener("click", () => {
+  playRound("scissors", computerPlay());
+});
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
-    return `It was a tie with ${playerSelection}`;
+    result.textContent = `It was a tie with ${playerSelection}`;
+    score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
   } else if (playerSelection == "rock") {
     if (computerSelection == "paper") {
       scoreComputer++;
-      return `You Lose! ${computerSelection} beats ${playerSelection}`;
+      result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+      score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
     } else {
       scorePlayer++;
-      return `You Win! ${playerSelection} beats ${computerSelection}`;
+      result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+      score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
     }
   } else if (playerSelection == "paper") {
     if (computerSelection == "scissors") {
       scoreComputer++;
-      return `You Lose! ${computerSelection} beats ${playerSelection}`;
+      result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+      score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
     } else {
       scorePlayer++;
-      return `You Win! ${playerSelection} beats ${computerSelection}`;
+      result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+      score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
     }
   } else if (playerSelection == "scissors") {
     if (computerSelection == "rock") {
       scoreComputer++;
-      return `You Lose! ${computerSelection} beats ${playerSelection}`;
+      result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+      score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
     } else {
       scorePlayer++;
-      return `You Win! ${playerSelection} beats ${computerSelection}`;
+      result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+      score.textContent = `SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`;
     }
+  }
+  if (scoreComputer == 5 || scorePlayer == 5) {
+    game();
   }
 }
 
 function game() {
-  while (scorePlayer < 3 && scoreComputer < 3) {
-    console.log(playRound(playerPlay(), computerPlay()));
-    console.log(`SCORE || Computer: ${scoreComputer}, Player: ${scorePlayer}`);
+  for (let i = 0; i < btn.length; i++) {
+    btn[i].disabled = true;
   }
-  if (scoreComputer == 3) {
-    console.log("You lose the game, Computer Win");
-  } else if (scorePlayer == 3) {
-    console.log("You Win the game, Congratulations!");
+  if (scoreComputer == 5) {
+    announcement.textContent = `You lose the game, Computer Win`;
+  } else if (scorePlayer == 5) {
+    announcement.textContent = `You Win the game, Congratulations!`;
   }
+  restartBtn.classList.add("restartbtn");
+  restartBtn.textContent = "Restart Game";
+  gameContainer.appendChild(restartBtn);
+  restartBtn.addEventListener("click", restartGame);
 }
 
-function buttonPlay() {
+function restartGame() {
+  for (let i = 0; i < btn.length; i++) {
+    btn[i].disabled = false;
+  }
   scorePlayer = 0;
   scoreComputer = 0;
-  console.clear();
-  console.log("Stars the game Man vs Machine");
-  game();
+  gameContainer.removeChild(restartBtn);
+  score.textContent = ``;
+  result.textContent = ``;
+  announcement.textContent = ``;
 }
