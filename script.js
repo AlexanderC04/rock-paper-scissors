@@ -1,11 +1,8 @@
 //  Rock Paper Scissors
 
-//  Get random between 1 and  3
 function getRandomInt() {
   return Math.floor(Math.random() * (3 - 1 + 1) + 1);
 }
-
-// Use the number from getRandomInt() to chose the computer choice for the round
 
 function getComputerChoice() {
   switch (getRandomInt()) {
@@ -20,8 +17,6 @@ function getComputerChoice() {
       return "Scissors";
   }
 }
-
-// Get the player choice and make sure that was well type
 
 function getPlayerChoice() {
   let playerInput;
@@ -50,8 +45,7 @@ function getPlayerChoice() {
   return playerChoice;
 }
 
-// compere the player selection and the computer chose and decide a winner for the round
-// return the True if the player win, false if the computer won and null if was a tie.
+// Return the True if the player win, false if the computer won and null if was a tie.
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
@@ -74,10 +68,10 @@ function game() {
   let playerScore = 0;
   let computerScore = 0;
   do {
-    let result = playRound(getPlayerChoice(), getComputerChoice());
-    if (result === true) {
+    let roundResult = playRound(getPlayerChoice(), getComputerChoice());
+    if (roundResult === true) {
       playerScore++;
-    } else if (result === false) {
+    } else if (roundResult === false) {
       computerScore++;
     } else {
       null;
