@@ -1,0 +1,20 @@
+.container {
+  margin: auto;
+  text-align: center;
+}
+
+.choices,
+.result {
+  display: block;
+}
+
+.score-box {
+  padding: 0;
+  margin: 6px;
+  font-weight: 600;
+}
+
+#human-score,
+#computer-score {
+  font-weight: normal;
+}
