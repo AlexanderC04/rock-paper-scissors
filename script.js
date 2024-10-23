@@ -18,7 +18,10 @@ function getHumanChoice() {
   return humanChoice.toLowerCase();
 }
 
-function playRound(humanChoice, computerChoice) {
+function playRound(ChoiceByHuman, choiceByComputer) {
+  const humanChoice = ChoiceByHuman();
+  const computerChoice = choiceByComputer();
+
   console.log(`Human: ${humanChoice}`);
   console.log(`Computer: ${computerChoice}`);
 
@@ -100,7 +103,7 @@ function playGame() {
   let computerScore = 0;
   let result;
   while (humanScore < 5 && computerScore < 5) {
-    result = playRound(getHumanChoice(), getComputerChoice());
+    result = playRound(getHumanChoice, getComputerChoice);
     if (result === null) {
     } else if (result === true) {
       humanScore++;
