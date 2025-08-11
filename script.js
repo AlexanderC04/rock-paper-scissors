@@ -23,17 +23,33 @@ function getHumanChoice() {
   return prompt("Enter your choice: Rock, Paper, Scissors").toLowerCase();
 }
 
-function showWinner(winner) {
-  if (winner == "human") console.log("Congratulations! You beat the computer.");
-  else console.log("Game over! the computer won.");
+function displayScore(computerScore, humanScore) {
+  console.log("Computer: " + computerScore + " | Human: " + humanScore);
 }
+
+function displayWinner(winner) {
+  if (winner == "human") console.log("Congratulations! You beat the computer.");
+  else console.log("Game over! The computer won.");
+}
+
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
 
+  function updateScore(roundWinner) {
+    if (roundWinner === "human") {
+      humanScore++;
+      displayScore(computerScore, humanScore);
+    } else {
+      computerScore++;
+      displayScore(computerScore, humanScore);
+    }
+  }
+
   function playRound() {
     const humanChoice = getHumanChoice();
     const computerChoice = getComputerChoice();
+    console.log("*----------------------------*");
     console.log("Computer: " + computerChoice);
     console.log("Human: " + humanChoice);
 
@@ -43,7 +59,7 @@ function playGame() {
           humanChoice.toUpperCase().charAt(0) + humanChoice.slice(1)
         }`
       );
-      showScore();
+      displayScore(computerScore, humanScore);
     } else if (
       (humanChoice === "rock" && computerChoice === "scissors") ||
       (humanChoice === "scissors" && computerChoice === "paper") ||
@@ -63,27 +79,17 @@ function playGame() {
           computerChoice.toUpperCase().charAt(0) + computerChoice.slice(1)
         } beats ${humanChoice.toUpperCase().charAt(0) + humanChoice.slice(1)}`
       );
-      updateScore();
+      updateScore("computer");
     }
   }
-  function updateScore(roundWinner = "") {
-    if (roundWinner === "human") {
-      humanScore++;
-      showScore();
-    } else {
-      computerScore++;
-      showScore();
-    }
-  }
-  function showScore() {
-    console.log("Computer: " + computerScore + " | Human: " + humanScore);
-  }
+
   while (humanScore < 5 && computerScore < 5) {
     playRound();
   }
 
   if (humanScore == 5 || computerScore == 5) {
-    showWinner(humanScore == 5 ? "human" : "computer");
+    displayWinner(humanScore == 5 ? "human" : "computer");
   }
 }
+
 playGame();
